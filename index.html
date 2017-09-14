@@ -35,26 +35,19 @@
         <el-row style="height:calc(100% - 80px);clear:both;">
             <div class="menu-left">
                 <div class="el-menu-item menu-title" @click='handleIsCollapse'><i class="fa fa-bars"></i></div>
-                <el-menu default-active="1-1" class="el-menu-demo" unique-opened="true" theme="dark" :collapse="isCollapse">
-                    <el-submenu index="1">
+                <el-menu default-active="1-1" class="el-menu-demo" unique-opened="true" theme="dark" :collapse="isCollapse" @select='handleSelect'>
+                    <el-submenu v-if="item.parent=='0'" :index="item.index" v-for="item in menuData">
                         <template slot="title">
-                          <i class="el-icon-message"></i>
-                          <span slot="title">导航一</span>
+                            <i class="el-icon-message"></i>
+                            <span slot="title">{{item.title}}</span>
                         </template>
-                        <el-menu-item index="1-1">选项1</el-menu-item>
-                        <el-menu-item index="1-2">选项2</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="2">
-                        <template slot="title">
-                          <i class="el-icon-message"></i>
-                          <span slot="title">导航二</span>
-                        </template>
-                        <el-menu-item index="2-1">选项1</el-menu-item>
-                        <el-menu-item index="2-2">选项2</el-menu-item>
+                        <el-menu-item :index="_item.index" v-if="_item.parent==item.index" v-for="_item in menuData">{{_item.title}}</el-menu-item>
                     </el-submenu>
                 </el-menu>
             </div>
-            <div :class="{'body-right':!isCollapse,'body-right collapse':isCollapse}">123</div>
+            <div :class="{'body-right':!isCollapse,'body-right collapse':isCollapse}">
+                {{value}}
+            </div>
         </el-row>
     </div>
 </body>
@@ -66,11 +59,40 @@
     new Vue({
         el: '#app',
         data: {
-            isCollapse: true
+            menuData: [{
+                title: '导航一',
+                index: '1',
+                parent: '0'
+            }, {
+                title: '导航二',
+                index: '2',
+                parent: '0'
+            }, {
+                index: '1-1',
+                title: '选项1',
+                parent: '1'
+            }, {
+                index: '1-2',
+                title: '选项2',
+                parent: '1'
+            }, {
+                index: '2-1',
+                title: '选项1',
+                parent: '2'
+            }, {
+                index: '2-2',
+                title: '选项2',
+                parent: '2'
+            }],
+            isCollapse: true,
+            value: ''
         },
         methods: {
             handleIsCollapse: function() {
                 this.isCollapse = !this.isCollapse;
+            },
+            handleSelect: function(index, indexPath) {
+                this.value = indexPath
             }
         }
     })
