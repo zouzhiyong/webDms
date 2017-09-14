@@ -1,0 +1,103 @@
+body {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+    overflow: auto;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+#app, body, html {
+    height: 100%;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+ol, ul {
+    list-style: none outside none;
+}
+
+dd, dl, li, ol, ul {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border-style: none;
+}
+
+header {
+    background: #20a0ff;
+    height: 80px;
+    line-height: 80px;
+    width: 100%;
+    padding: 0 20px;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.header-logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header-operations {
+    display: inline-block;
+    padding-right: 30px;
+    height: 100%;
+    float: right;
+}
+
+.header-operations li {
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 10px;
+    margin: 0 10px;
+    line-height: 80px;
+    cursor: pointer;
+}
+
+.menu-title, .menu-title:hover {
+    background: #100e11;
+    color: #fff;
+    text-align: center;
+}
+
+.menu-left {
+    float: left;
+    height: 100%;
+    background: #100e11;
+}
+
+.el-menu:not(.el-menu--collapse) {
+    width: 200px;
+}
+
+.el-menu:not(.el-menu--collapse) .el-submenu .el-menu {
+    width: 196px;
+}
+
+.el-menu:not(.el-menu--collapse) .el-submenu .el-menu .el-menu-item {
+    min-width: 196px;
+}
+
+.el-menu:not(.el-menu--collapse) .el-submenu.is-opened {
+    border-left: 4px solid #538bfa;
+}
+
+.body-right {
+    width: calc(100% - 200px);
+    height: 100%;
+    float: right;
+}
+
+.body-right.collapse {
+    width: calc(100% - 64px);
+}
+
+.el-submenu, .el-menu-item {
+    background: #100e11;
+    border-bottom: 1px solid #141f33;
+}

@@ -5,17 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title></title>
+    <link rel="stylesheet" href="global/css/font-awesome.css" />
     <link rel="stylesheet" href="global/css/index.css" />
+    <link rel="stylesheet" href="global/css/global.css" />
 </head>
 
 <body>
-    <el-row>
-        <el-col :span="24">
-            <div class="grid-content bg-purple-dark"></div>
-        </el-col>
-    </el-row>
+    <div id='app' style="height:100%">
+        <el-row>
+            <el-col :span="24">
+                <header>
+                    <img src="" alt="logo" class="header-logo">
+                    <ul class="header-operations">
+                        <li>切换主题色</li>
+                        <li class="header-download">
+                            下载主题
+                        </li>
+                        <li>帮助</li>
+                        <li><span class="header-lang is-active">
+                          中文
+                        </span> <span>/</span> <span class="header-lang">
+                          En
+                        </span></li>
+                    </ul>
+                </header>
+            </el-col>
+        </el-row>
+        <el-row style="height:calc(100% - 80px);clear:both;">
+            <div class="menu-left">
+                <div class="el-menu-item menu-title" @click='handleIsCollapse'><i class="fa fa-bars"></i></div>
+                <el-menu default-active="1-1" class="el-menu-demo" unique-opened="true" theme="dark" :collapse="isCollapse">
+                    <el-submenu index="1">
+                        <template slot="title">
+                          <i class="el-icon-message"></i>
+                          <span slot="title">导航一</span>
+                        </template>
+                        <el-menu-item index="1-1">选项1</el-menu-item>
+                        <el-menu-item index="1-2">选项2</el-menu-item>
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title">
+                          <i class="el-icon-message"></i>
+                          <span slot="title">导航二</span>
+                        </template>
+                        <el-menu-item index="2-1">选项1</el-menu-item>
+                        <el-menu-item index="2-2">选项2</el-menu-item>
+                    </el-submenu>
+                </el-menu>
+            </div>
+            <div :class="{'body-right':!isCollapse,'body-right collapse':isCollapse}">123</div>
+        </el-row>
+    </div>
 </body>
 
 </html>
+<script src="global/js/vue.min.js"></script>
 <script src="global/js/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isCollapse: true
+        },
+        methods: {
+            handleIsCollapse: function() {
+                this.isCollapse = !this.isCollapse;
+            }
+        }
+    })
+</script>
