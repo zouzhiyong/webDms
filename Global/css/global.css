@@ -114,6 +114,7 @@ header {
 
 .wrapper .content .el-tabs.el-tabs--border-card {
     height: 100%;
+    border-top: none;
 }
 
 .wrapper .content .el-tabs.el-tabs--border-card .el-tabs__content, .wrapper .content .el-tabs.el-tabs--border-card .el-tabs__content .el-tab-pane {
