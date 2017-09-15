@@ -35,7 +35,7 @@
         <el-row style="height:calc(100% - 80px);clear:both;">
             <div class="menu-left">
                 <div class="el-menu-item menu-title" @click='handleIsCollapse'><i class="fa fa-bars"></i></div>
-                <el-menu default-active="1-1" class="el-menu-demo" unique-opened="true" theme="dark" :collapse="isCollapse" @select='handleSelect'>
+                <el-menu class="el-menu-demo" unique-opened="true" theme="dark" :collapse="isCollapse" @select='handleSelect'>
                     <el-submenu v-if="item.parent=='0'" :index="item.index" v-for="item in menuData">
                         <template slot="title">
                             <i class="el-icon-message"></i>
@@ -45,8 +45,15 @@
                     </el-submenu>
                 </el-menu>
             </div>
-            <div :class="{'body-right':!isCollapse,'body-right collapse':isCollapse}">
-                {{value}}
+            <div :class="'wrapper' + [isCollapse?' collapse':'']">
+                <div class="content">
+                    <el-tabs type="border-card">
+                        <el-tab-pane label="主页">主页</el-tab-pane>
+                        <el-tab-pane label="配置管理" closable=true>配置管理</el-tab-pane>
+                        <el-tab-pane label="角色管理" closable=true>角色管理</el-tab-pane>
+                    </el-tabs>
+                </div>
+                <div class="footer">123</div>
             </div>
         </el-row>
     </div>
@@ -84,7 +91,7 @@
                 title: '选项2',
                 parent: '2'
             }],
-            isCollapse: true,
+            isCollapse: false,
             value: ''
         },
         methods: {
