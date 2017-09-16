@@ -170,7 +170,9 @@
             </div>
             <div class="J_mainContent">
                 <div v-for="item in openData" class="J_iframe" :data-id="item.code" :style="{display:item.active?'':'none'}">
-                    {{item.code}}
+                    <component :is="item.url">
+
+                    </component>
                 </div>
             </div>
             <div class="footer">
@@ -188,6 +190,7 @@
     <script src="Global/js/vue.min.js?ver=20170703"></script>
     <script src="Global/js/frame.js?ver=20170703"></script>
     <script src="Global/js/index.js?ver=20170703"></script>
+    <script src="components/vue-page.js?ver=20170703"></script>
 </body>
 
 </html>
@@ -200,7 +203,7 @@
                 parent: '',
                 active: true,
                 label: '主页',
-                url: 'ck.html'
+                url: ''
             },
             openData: [],
             menuData: [{
@@ -214,13 +217,13 @@
                 parent: '1',
                 icon: '',
                 label: '进货入库单',
-                url: 'ck.html'
+                url: 'custpage'
             }, {
                 code: '1-2',
                 parent: '1',
                 icon: '',
                 label: '表单',
-                url: 'ck.html'
+                url: 'custpages'
             }, {
                 code: '2',
                 parent: '',
