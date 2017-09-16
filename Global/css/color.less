@@ -1,0 +1,205 @@
+@color-base: #538bfa;
+@color1: darken(hsl(hue(@color-base), 45%, 96%), 90%);
+@color2: darken(hsl(hue(@color-base), 45%, 96%), 85%);
+@color3: darken(hsl(hue(@color-base), 45%, 96%), 75%);
+@color4: darken(@color-base, 10%);
+@color5: lighten(hsl(hue(@color-base), 10%, 20%), 40%);
+@color6: darken(hsl(hue(@color-base), 45%, 96%), 10%);
+@color7: hsl(hue(@color-base), 43%, 96%);
+@color8: hsl(hue(@color-base)+20, 100%, 100%);
+header {
+    background-color: @color-base;
+}
+
+.header_operations>li>a {
+    color: @color8;
+}
+
+.header_operations>li>a:hover {
+    background-color:darken( @color-base,5%);
+}
+
+.footer {
+    border-top-color: @color6;
+}
+
+.side_bar {
+    background-color: @color1;
+}
+
+.side_bar .top_nav {
+    background-color: @color2;
+}
+
+.mini-navbar .side_bar>.menu>ul>li:hover ul.collapse{
+    background-color: @color1;
+    border-color: @color2;
+}
+
+.side_bar>.menu>ul>li {
+    border-left-color: @color1;
+    border-bottom-color: @color2;
+}
+
+.side_bar>.menu>ul>li.active {
+    border-left-color: @color-base;
+    border-bottom-color: @color2;
+}
+
+.side_bar ul li:hover {
+    border-left-color: @color2;
+    border-bottom-color: @color2;
+}
+
+.side_bar ul li a:hover {
+    background-color: @color2;
+}
+
+.side_bar .menu_item.active {
+    background-color: @color3;
+}
+
+.side_bar a {
+    color: @color8;
+}
+
+.zz-sidebar ul li.active {
+    border-left-color: @color4;
+}
+
+.scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px @color1;
+    background-color: @color6;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 6px;
+    background-color: @color6;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: @color1;
+}
+
+.main_tabs {
+    border-bottom-color: @color-base;
+    color: @color5;
+}
+
+.main_tabs button {
+    background: @color8 none repeat scroll 0 0;
+}
+
+.main_tabs button:hover {
+    background: @color7 none repeat scroll 0 0;
+}
+
+.main_tabs .roll-left {
+    border-right-color: @color7;
+}
+
+.main_tabs .roll-right {
+    border-left-color: @color7;
+}
+
+.page-tabs a {
+    color: @color5;
+    border-right-color: @color7;
+}
+
+.page-tabs a.active {
+    background: @color4 none repeat scroll 0 0;
+    color: @color8;
+}
+
+.main_tabs .roll-nav,
+.page-tabs-list {
+    color: @color5;
+}
+
+.page-tabs a:not(.active):hover,
+.main_tabs .roll-nav:hover {
+    background: @color7 none repeat scroll 0 0;
+    color: darken(@color5, 20%);
+    cursor: pointer;
+}
+
+.roll-right.J_tabExit {
+    background: @color8 none repeat scroll 0 0;
+}
+
+
+.modal-title{
+    color: @color3
+}
+
+input.input_color{
+    background-color: @color8;
+}
+
+/*全局定义*/
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+    background-color:@color4;
+    border-color:@color4;
+}
+
+
+.btn:active:focus,.btn:active:hover{
+    background-color:@color8;
+    color: darken(@color4,10%);
+    border-color: darken(@color4,10%);
+}
+
+.btn:active{    
+    color: @color4;
+    background-color:@color8;
+    border-color: @color4;
+}
+
+.btn:hover{
+    color: @color4;
+    background-color:@color8;
+    border-color: @color4;
+}
+
+.btn:focus{
+    color: lighten(@color4,10%);
+    background-color:@color8;
+    border-color: @color4;
+}
+
+.btn{
+    background-color: @color8;
+    border-color: lighten(@color4,10%);
+    color:lighten(@color4,10%);
+}
+
+.btn-custom-primary:active:focus,.btn-custom-primary:active:hover{
+    background-color:darken(@color4,10%);
+    color: @color8;
+    border-color: darken(@color4,10%);
+}
+
+.btn-custom-primary:active{    
+    color: @color8;
+    background-color:@color4;
+    border-color: @color4;
+}
+
+.btn-custom-primary:hover{
+    color: @color8;
+    background-color:@color4;
+    border-color: @color4;
+}
+
+.btn-custom-primary:focus{
+    color: @color8;
+    background-color:@color4;
+    border-color: @color4;
+}
+
+.btn-custom-primary{
+    background-color:lighten(@color4,10%);
+    color: @color8;
+}
+

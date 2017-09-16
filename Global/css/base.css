@@ -1,0 +1,69 @@
+body {
+    font-size: 14px;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.el-row {
+    margin-bottom: 20px;
+}
+
+a:focus, a:hover {
+    outline: 0 none;
+    text-decoration: none;
+}
+
+li>a i {
+    margin-right: 10px;
+}
+
+.demo-form-inline .el-input {
+    width: 150px;
+}
+
+.table {
+    margin-top: 15px;
+}
+
+.table.tb-edit .cell .el-input__inner {
+    background-color: transparent;
+    border-radius: 0;
+    border-width: 0;
+    height: 39px;
+}
+
+.table.tb-edit .cell .el-input__inner:focus {
+    border-width: 1px;
+}
+
+.table.tb-edit.el-table--enable-row-hover .el-table__body tr:hover>td {
+    background-color: transparent;
+}
+
+.table.tb-edit.el-table .cell, .el-table th>div {
+    padding: 0;
+}
+
+.table.tb-edit.el-table .el-input-group__append, .table.tb-edit.el-table .el-input-group__prepend {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    width: 0;
+}
+
+.table.tb-edit.el-table .operate .cell i {
+    margin: 0 8px;
+}
+
+.table.tb-edit.el-table .cell .center-input .el-input__inner {
+    text-align: center;
+}
