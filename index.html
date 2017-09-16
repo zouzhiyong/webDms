@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="Global/css/icon.css?ver=20170718" />
     <link rel="stylesheet" href="Global/css/iconfont.css?ver=20170718" />
     <link rel="stylesheet" href="Global/css/font-awesome.css?ver=20170718" />
+    <link rel="stylesheet" href="Global/css/index.css?ver=20170718" />
     <link rel="stylesheet" href="Global/css/global.css?ver=20170718" />
     <link rel="stylesheet" href="Global/css/layout.css?ver=20170718" />
     <link rel="stylesheet/less" href="Global/css/color.less" />
@@ -27,7 +28,7 @@
             <nav class="nav navbar-top-links navbar-right">
                 <ul class="header_operations">
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#myModal">
+                        <a href="javascript:;" data-toggle="modal" data-target="#myModal">
                             <i class="fa fa-tasks"></i> 主题
                         </a>
                         <!-- Modal -->
@@ -108,59 +109,27 @@
             </div>
             <div class="menu scroll">
                 <ul>
-                    <li>
-                        <a class="menu_item" href="views/ck.html" data-index="0" expanded="false">
-                            <i class="fa fa-home"></i>
-                            <span class="">主页</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-index="0" expanded="false">
-                            <i class="iconfont icon-setting"></i>
-                            <span class="menu-label">系统管理</span>
-                            <span class="fa fa-angle-left arrow"> </span>
-                        </a>
-                        <ul class="collapse" expanded="false">
-                            <li>
-                                <a class="menu_item" href="views/test.html" data-index="1">
-                                    <i class=""></i> 单文件组件
-                                </a>
-                            </li>
-                            <li>
-                                <a class="menu_item" href="views/button.html" data-index="1">
-                                    <i class=""></i> 单文件按钮组件
-                                </a>
-                            </li>
-                            <li>
-                                <a class="menu_item" href="views/template.html" data-index="2">
-                                    <i class=""></i> 组件测试
-                                </a>
-                            </li>
-                            <li>
-                                <a class="menu_item" href="views/router.html" data-index="3">
-                                    <i class=""></i> 路由
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-index="1" expanded="false">
-                            <i class="iconfont icon-setting"></i>
-                            <span class="menu-label">仓库管理</span>
-                            <span class="fa fa-angle-left arrow"> </span>
-                        </a>
-                        <ul class="collapse" expanded="false">
-                            <li>
-                                <a class="menu_item" href="views/ck.html" data-index="4">
-                                    <i class=""></i> 进货入库单
-                                </a>
-                            </li>
-                            <li>
-                                <a class="menu_item" href="views/form.html" data-index="4">
-                                    <i class=""></i> 表单
-                                </a>
-                            </li>
-                        </ul>
+                    <li v-for="menuItem in menuData" v-if="menuItem.parent==''">
+                        <template v-if="menuItem.code=='0'">
+                                <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="0" expanded="false">
+                                        <i class="fa fa-home"></i>
+                                        <span class="">主页</span>
+                                    </a>
+                        </template>
+                        <template v-else>
+                                <a href="javascript:;" :data-index="menuItem.code" expanded="false">
+                                        <i :class="menuItem.icon"></i>
+                                        <span class="menu-label">{{menuItem.label}}</span>
+                                        <span class="fa fa-angle-left arrow"> </span>
+                                    </a>
+                                    <ul class="collapse" expanded="false">
+                                        <li v-for="subMenuItem in menuData" v-if="subMenuItem.parent==menuItem.code">
+                                            <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="4">
+                                                <i class=""></i> {{subMenuItem.label}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                        </template>
                     </li>
                 </ul>
             </div>
@@ -172,7 +141,9 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content" style="margin-left: 0px;">
-                        <a href="javascript:;" class="J_menuTab active" data-id="0">主页</a>
+                        <a v-if="item.isOpen" v-for="(item,index) in menuData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.code" data-index="12" v-on:click="handleSwitchTab(item)">
+                            {{item.label}} 
+                            <i v-if="item.code!='0'" class="fa fa-times-circle" v-on:click="handleCloseTab(item,index)"></i></a>
                     </div>
                 </nav>
 
@@ -198,7 +169,9 @@
                 <a href="javascript:;" class="roll-nav roll-right J_tabExit logoff-link"><i class="fa fa fa-sign-out"></i>退出</a>
             </div>
             <div class="J_mainContent">
-
+                <div v-if="item.isOpen" v-for="item in menuData" class="J_iframe" :data-id="item.code" :style="{display:item.active?'':'none'}">
+                    {{item.code}}
+                </div>
             </div>
             <div class="footer">
                 <div class="pull-right ">
@@ -212,10 +185,100 @@
 
     <script src="Global/js/jquery.min.js?ver=20170703"></script>
     <script src="Global/js/bootstrap.min.js?ver=20170703"></script>
+    <script src="Global/js/vue.min.js?ver=20170703"></script>
     <script src="Global/js/frame.js?ver=20170703"></script>
-
+    <script src="Global/js/index.js?ver=20170703"></script>
 </body>
 
 </html>
 <script>
+    var _vm = new Vue({
+        el: '.wrapper',
+        data: {
+            homePage: {
+                code: '0',
+                parent: '',
+                active: true,
+                isOpen: true,
+                label: '主页',
+                url: 'ck.html'
+            },
+            menuData: [{
+                code: '1',
+                parent: '',
+                isOpen: false,
+                active: false,
+                icon: 'iconfont icon-setting',
+                label: '仓库管理',
+                url: 'ck.html'
+            }, {
+                code: '2',
+                parent: '1',
+                isOpen: false,
+                active: false,
+                icon: '',
+                label: '进货入库单',
+                url: 'ck.html'
+            }, {
+                code: '3',
+                parent: '1',
+                isOpen: false,
+                active: false,
+                icon: '',
+                label: '表单',
+                url: 'ck.html'
+            }, {
+                code: '4',
+                parent: '',
+                isOpen: false,
+                active: false,
+                icon: 'iconfont icon-setting',
+                label: '仓库管理',
+                url: 'ck.html'
+            }, {
+                code: '5',
+                parent: '4',
+                isOpen: false,
+                active: false,
+                icon: '',
+                label: '进货入库单',
+                url: 'ck.html'
+            }, {
+                code: '6',
+                parent: '4',
+                isOpen: false,
+                active: false,
+                icon: '',
+                label: '表单',
+                url: 'ck.html'
+            }]
+        },
+        created: function() {
+            this.menuData.splice(0, 0, this.homePage);
+        },
+        methods: {
+            handleUnActive: function() {
+                this.menuData.map(function(item) {
+                    item.active = false;
+                })
+            },
+            handleMenuItem: function(subMenuItem) {
+                this.handleUnActive();
+                subMenuItem.isOpen = true;
+                subMenuItem.active = true;
+            },
+            handleSwitchTab: function(item) {
+                this.handleUnActive();
+                item.active = true;
+            },
+            handleCloseTab: function(item, index) {
+                item.isOpen = false;
+                if (item.active) {
+                    var arr = this.menuData.filter(function(item) {
+                        return item.isOpen == true;
+                    })
+                }
+            }
+        }
+    })
 </script>

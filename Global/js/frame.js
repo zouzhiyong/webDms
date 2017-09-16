@@ -16,16 +16,16 @@ $(function() {
     $(".side_bar>.menu>ul>li").hover(BaseFun.menuItemHover);
 
     //二级菜单点击事件 
-    $('.menu_item').on('click', BaseFun.menuItemSub);
+    //$('.menu_item').on('click', BaseFun.menuItemSub);
 
 
     //*************工具栏部分*************
 
     //点击TAB关闭相对应页面
-    $('.J_menuTabs').on('click', '.J_menuTab i', BaseFun.closeTab);
+    // $('.J_menuTabs').on('click', '.J_menuTab i', BaseFun.closeTab);
 
     //激活页面
-    $('.J_menuTabs').on('click', '.J_menuTab', BaseFun.activeTab);
+    // $('.J_menuTabs').on('click', '.J_menuTab', BaseFun.activeTab);
 
     //切换主题颜色
     $('.J-color-model').on('click', BaseFun.checkColor);

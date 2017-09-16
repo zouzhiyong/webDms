@@ -162,6 +162,7 @@ body:not(.mini-navbar) .side_bar>.menu>ul>li {
 
 .J_iframe {
     height: 100%;
+    width: 100%;
 }
 
 .main_tabs {
@@ -179,8 +180,7 @@ body:not(.mini-navbar) .side_bar>.menu>ul>li {
     width: 35px;
 }
 
-.main_tabs .roll-nav,
-.page-tabs-list {
+.main_tabs .roll-nav, .page-tabs-list {
     height: 35px;
     position: absolute;
     text-align: center;
