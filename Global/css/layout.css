@@ -163,6 +163,7 @@ body:not(.mini-navbar) .side_bar>.menu>ul>li {
 .J_iframe {
     height: 100%;
     width: 100%;
+    padding: 12px;
 }
 
 .main_tabs {

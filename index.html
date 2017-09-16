@@ -141,9 +141,9 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content" style="margin-left: 0px;">
-                        <a v-if="item.isOpen" v-for="(item,index) in menuData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.code" data-index="12" v-on:click="handleSwitchTab(item)">
+                        <a v-for="(item,index) in openData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.code" data-index="12" v-on:click="handleSwitchTab(item)">
                             {{item.label}} 
-                            <i v-if="item.code!='0'" class="fa fa-times-circle" v-on:click="handleCloseTab(item,index)"></i></a>
+                            <i v-if="item.code!='0'" class="fa fa-times-circle" v-on:click.stop="handleCloseTab(item,index)"></i></a>
                     </div>
                 </nav>
 
@@ -169,7 +169,7 @@
                 <a href="javascript:;" class="roll-nav roll-right J_tabExit logoff-link"><i class="fa fa fa-sign-out"></i>退出</a>
             </div>
             <div class="J_mainContent">
-                <div v-if="item.isOpen" v-for="item in menuData" class="J_iframe" :data-id="item.code" :style="{display:item.active?'':'none'}">
+                <div v-for="item in openData" class="J_iframe" :data-id="item.code" :style="{display:item.active?'':'none'}">
                     {{item.code}}
                 </div>
             </div>
@@ -199,84 +199,83 @@
                 code: '0',
                 parent: '',
                 active: true,
-                isOpen: true,
                 label: '主页',
                 url: 'ck.html'
             },
+            openData: [],
             menuData: [{
                 code: '1',
                 parent: '',
-                isOpen: false,
-                active: false,
                 icon: 'iconfont icon-setting',
                 label: '仓库管理',
                 url: 'ck.html'
             }, {
                 code: '2',
                 parent: '1',
-                isOpen: false,
-                active: false,
                 icon: '',
                 label: '进货入库单',
                 url: 'ck.html'
             }, {
                 code: '3',
                 parent: '1',
-                isOpen: false,
-                active: false,
                 icon: '',
                 label: '表单',
                 url: 'ck.html'
             }, {
                 code: '4',
                 parent: '',
-                isOpen: false,
-                active: false,
                 icon: 'iconfont icon-setting',
-                label: '仓库管理',
+                label: '仓库管理2',
                 url: 'ck.html'
             }, {
                 code: '5',
                 parent: '4',
-                isOpen: false,
-                active: false,
                 icon: '',
-                label: '进货入库单',
+                label: '进货入库单2',
                 url: 'ck.html'
             }, {
                 code: '6',
                 parent: '4',
-                isOpen: false,
-                active: false,
                 icon: '',
-                label: '表单',
+                label: '表单2',
                 url: 'ck.html'
             }]
         },
         created: function() {
             this.menuData.splice(0, 0, this.homePage);
+            this.openData.push(this.homePage);
         },
         methods: {
             handleUnActive: function() {
-                this.menuData.map(function(item) {
+                this.openData.map(function(item) {
                     item.active = false;
                 })
             },
             handleMenuItem: function(subMenuItem) {
                 this.handleUnActive();
-                subMenuItem.isOpen = true;
-                subMenuItem.active = true;
+                var isActive = false;
+                this.openData.map(function(item) {
+                    if (item.code == subMenuItem.code) {
+                        item.active = true;
+                        isActive = true;
+                    }
+                })
+
+                if (!isActive) {
+                    var obj = JSON.parse(JSON.stringify(subMenuItem));
+                    obj.active = true;
+                    this.openData.push(obj);
+                }
             },
             handleSwitchTab: function(item) {
                 this.handleUnActive();
                 item.active = true;
             },
             handleCloseTab: function(item, index) {
-                item.isOpen = false;
-                if (item.active) {
-                    var arr = this.menuData.filter(function(item) {
-                        return item.isOpen == true;
-                    })
+                this.openData.splice(index, 1);
+                //如果当前TAB被激活，就取所有打开窗口的最后一个被激活
+                if (item.active == true) {
+                    this.openData[this.openData.length - 1].active = true;
                 }
             }
         }
