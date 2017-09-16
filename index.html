@@ -325,7 +325,10 @@
             }, //清除激活状态
             handleMenuItem: function(subMenuItem) {
                 var _self = this;
+                console.time();
+                console.timeEnd();
                 require(['Components/' + subMenuItem.url + '.js'], function(vuePage) {
+                    console.timeEnd();
                     _self.handleUnActive();
                     var isActive = false;
                     _self.openData.map(function(item) {
@@ -341,7 +344,7 @@
                         _self.openData.push(obj);
                     }
                 });
-
+                console.timeEnd();
 
             }, //点击菜单打开窗口
             handleSwitchTab: function(item) {
