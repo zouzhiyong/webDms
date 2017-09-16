@@ -10,15 +10,15 @@
     <title> </title>
     <meta charset="utf-8" />
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="Global/css/bootstrap.min.css?ver=20170718" />
-    <link rel="stylesheet" href="Global/css/icon.css?ver=20170718" />
-    <link rel="stylesheet" href="Global/css/iconfont.css?ver=20170718" />
-    <link rel="stylesheet" href="Global/css/font-awesome.css?ver=20170718" />
-    <link rel="stylesheet" href="Global/css/index.css?ver=20170718" />
-    <link rel="stylesheet" href="Global/css/global.css?ver=20170718" />
-    <link rel="stylesheet" href="Global/css/layout.css?ver=20170718" />
-    <link rel="stylesheet/less" href="Global/css/color.less" />
-    <script src="Global/js/less.min.js?ver=20170703"></script>
+    <link rel="stylesheet" href="Global/css/bootstrap.min.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/icon.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/iconfont.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/font-awesome.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/index.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/global.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/layout.css?ver=20170916" />
+    <link rel="stylesheet/less" href="Global/css/color.less?ver=20170916" />
+    <script src="Global/js/less.min.js?ver=20170916"></script>
 </head>
 
 <body>
@@ -185,13 +185,14 @@
 
     </div>
 
-    <script src="Global/js/jquery.min.js?ver=20170703"></script>
-    <script src="Global/layer/layer.js?ver=20170703"></script>
-    <script src="Global/js/bootstrap.min.js?ver=20170703"></script>
-    <script src="Global/js/vue.min.js?ver=20170703"></script>
-    <script src="Global/js/frame.js?ver=20170703"></script>
-    <script src="Global/js/index.js?ver=20170703"></script>
-    <script src="Components/vue-page.js?ver=20170703"></script>
+    <script src="Global/js/jquery.min.js?ver=20170916"></script>
+    <script src="Global/js/layer/layer.js?ver=20170916"></script>
+    <script src="Global/js/bootstrap.min.js?ver=20170916"></script>
+    <script src="Global/js/vue.min.js?ver=20170916"></script>
+    <script src="Global/js/frame.js?ver=20170916"></script>
+    <script src="Global/js/index.js?ver=20170916"></script>
+    <!-- <script src="Components/vue-page.js?ver=20170916"></script> -->
+    <script src="Global/js/require.js?ver=20170916"></script>
 </body>
 
 </html>
@@ -323,20 +324,25 @@
                 })
             }, //清除激活状态
             handleMenuItem: function(subMenuItem) {
-                this.handleUnActive();
-                var isActive = false;
-                this.openData.map(function(item) {
-                    if (item.code == subMenuItem.code) {
-                        item.active = true;
-                        isActive = true;
-                    }
-                })
+                var _self = this;
+                require(['Components/' + subMenuItem.url + '.js'], function(vuePage) {
+                    _self.handleUnActive();
+                    var isActive = false;
+                    _self.openData.map(function(item) {
+                        if (item.code == subMenuItem.code) {
+                            item.active = true;
+                            isActive = true;
+                        }
+                    })
 
-                if (!isActive) {
-                    var obj = JSON.parse(JSON.stringify(subMenuItem));
-                    obj.active = true;
-                    this.openData.push(obj);
-                }
+                    if (!isActive) {
+                        var obj = JSON.parse(JSON.stringify(subMenuItem));
+                        obj.active = true;
+                        _self.openData.push(obj);
+                    }
+                });
+
+
             }, //点击菜单打开窗口
             handleSwitchTab: function(item) {
                 this.handleUnActive();
