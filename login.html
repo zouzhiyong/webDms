@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8" />
+    <title>进销存</title>
+    <link rel="stylesheet" href="Global/css/font-awesome.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/index.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/login.css?ver=20170916" />
+</head>
+
+<body>
+    <div class='login'>
+        <el-form :model="ruleForm" ref="ruleForm" :rules="loginRules">
+            <el-form-item prop="userName">
+                <el-input placeholder="请输入帐号" v-model="ruleForm.userName" auto-complete="on">
+                    <template slot="prepend"><i class="fa fa-user" aria-hidden="true"></i></template>
+                </el-input>
+            </el-form-item>
+            <el-form-item prop="passWord">
+                <el-input type="password" placeholder="请输入密码" v-model="ruleForm.passWord" auto-complete="off" @keyup.enter.native="handleLogin">
+                    <template slot="prepend"><i class="fa fa-lock" aria-hidden="true"></i></template>
+                </el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="handleLogin">登录</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+</body>
+
+</html>
+<script src="Global/js/vue.min.js?ver=20170916"></script>
+<script src="Global/js/index.js?ver=20170916"></script>
+<script>
+    new Vue({
+        el: '.login',
+        data: {
+            ruleForm: {
+                userName: '',
+                passWord: ''
+            },
+            loginRules: {
+                userName: [{
+                    required: true,
+                    message: '帐号不能为空',
+                    trigger: 'blur'
+                }],
+                passWord: [{
+                    required: true,
+                    message: '密码不能为空',
+                    trigger: 'blur'
+                }]
+            }
+        },
+        methods: {
+            handleLogin: function() {
+                var _self = this;
+                this.$refs.ruleForm.validate(function(valid) {
+                    if (valid) {
+                        ajaxData('http://localhost:64573/api/Login/Login', {
+                            data: {
+                                userName: _self.userName,
+                                passWord: _self.passWord
+                            }
+                        }).then(function(result) {
+                            console.log(result)
+                                //_self.$message('这是一条消息提示');
+                        });
+                    } else {
+                        return false;
+                    }
+                });
+            }
+        }
+    })
+</script>

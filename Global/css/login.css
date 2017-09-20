@@ -1,0 +1,27 @@
+body {
+    background: #131a48;
+    height: 100%;
+    margin: 0;
+}
+
+.login {
+    width: 300px;
+    position: absolute;
+    top: calc(50% - 90px);
+    left: calc(50% - 150px);
+}
+
+.login .el-button {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.login .el-row {
+    margin: 20px;
+}
+
+.login .el-input__inner {
+    background: transparent;
+    border: 1px solid #5283be;
+    color: #fff;
+}

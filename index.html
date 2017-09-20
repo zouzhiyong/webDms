@@ -243,7 +243,7 @@
             handleMenuItem: function(subMenuItem) {
                 var _self = this;
                 console.time();
-                require(['Components/' + subMenuItem.url + '.js'], function(vuePage) {
+                require(['Areas/' + subMenuItem.url + '.js'], function(vuePage) {
 
 
                     _self.handleUnActive();
@@ -290,5 +290,4 @@
             }, //关闭其它窗口
         }
     })
-</script>
 </script>
