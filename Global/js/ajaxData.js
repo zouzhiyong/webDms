@@ -1,16 +1,21 @@
-//ajax调用，需要先引用jquery
-
 var ajaxData = function(url, option) {
-    var defaults = {
+    var _defaults = {
         url: url,
+        type: 'POST',
         async: true,
         global: true,
+        beforeSend: function(xhr) {
+            var _ticket = $.cookie('Ticket');
+            if (_ticket) {
+                xhr.setRequestHeader('Authorization', 'BasicAuth ' + _ticket);
+            }
+        },
         success: function(result) {
             return result;
         }
     }
 
-    var opts = $.extend({}, defaults, option);
+    var opts = $.extend({}, _defaults, option);
     opts.then = opts.success;
     opts.catch = opts.error;
     return $.ajax(opts);

@@ -109,23 +109,23 @@
             </div>
             <div class="menu scroll">
                 <ul>
-                    <li v-for="menuItem in menuData" v-if="menuItem.parent==''">
-                        <template v-if="menuItem.code=='0'">
+                    <li v-for="menuItem in menuData" v-if="menuItem.MenuParentNo==''">
+                        <template v-if="menuItem.MenuNo=='0'">
                                 <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="0" expanded="false">
                                         <i class="fa fa-home"></i>
                                         <span class="">主页</span>
                                     </a>
                         </template>
                         <template v-else>
-                                <a href="javascript:;" :data-index="menuItem.code" expanded="false">
-                                        <i :class="menuItem.icon"></i>
-                                        <span class="menu-label">{{menuItem.label}}</span>
+                                <a href="javascript:;" :data-index="menuItem.MenuNo" expanded="false">
+                                        <i :class="menuItem.MenuIcon"></i>
+                                        <span class="menu-label">{{menuItem.MenuName}}</span>
                                         <span class="fa fa-angle-left arrow"> </span>
                                     </a>
                                     <ul class="collapse" expanded="false">
-                                        <li v-for="subMenuItem in menuData" v-if="subMenuItem.parent==menuItem.code">
+                                        <li v-for="subMenuItem in menuData" v-if="subMenuItem.MenuParentNo==menuItem.MenuNo">
                                             <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="4">
-                                                <i class=""></i> {{subMenuItem.label}}
+                                                <i class=""></i> {{subMenuItem.MenuName}}
                                             </a>
                                         </li>
                                     </ul>
@@ -141,9 +141,9 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content" style="margin-left: 0px;">
-                        <a v-for="(item,index) in openData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.code" data-index="12" v-on:click="handleSwitchTab(item)">
-                            {{item.label}} 
-                            <i v-if="item.code!='0'" class="fa fa-times-circle" v-on:click.stop="handleCloseTab(item,index)"></i></a>
+                        <a v-for="(item,index) in openData" href="javascript:;" :class="[item.active?'active':'']+' J_menuTab'" :data-id="item.MenuNo" data-index="12" v-on:click="handleSwitchTab(item)">
+                            {{item.MenuName}} 
+                            <i v-if="item.MenuNo!='0'" class="fa fa-times-circle" v-on:click.stop="handleCloseTab(item,index)"></i></a>
                     </div>
                 </nav>
 
@@ -169,8 +169,8 @@
                 <a href="javascript:;" class="roll-nav roll-right J_tabExit logoff-link"><i class="fa fa fa-sign-out"></i>退出</a>
             </div>
             <div class="J_mainContent">
-                <div v-for="item in openData" class="J_iframe" :data-id="item.code" :style="{display:item.active?'':'none'}">
-                    <component :is="item.url">
+                <div v-for="item in openData" class="J_iframe" :data-id="item.MenuNo" :style="{display:item.active?'':'none'}">
+                    <component :is="item.MenuUrl">
 
                     </component>
                 </div>
@@ -186,11 +186,12 @@
     </div>
 
     <script src="Global/js/jquery.min.js?ver=20170916"></script>
+    <script src="Global/js/jquery.cookie.js?ver=20170916"></script>
     <script src="Global/js/layer/layer.js?ver=20170916"></script>
     <script src="Global/js/bootstrap.min.js?ver=20170916"></script>
     <script src="Global/js/vue.min.js?ver=20170916"></script>
     <script src="Global/js/frame.js?ver=20170916"></script>
-    <script src="Global/js/index.js?ver=20170916"></script>
+    <script src="Global/js/element-ui.js?ver=20170916"></script>
     <script src="Global/js/ajaxData.js?ver=20170916"></script>
     <script src="Global/js/require.js?ver=20170916"></script>
 </body>
@@ -198,34 +199,37 @@
 </html>
 <script>
     var menuData = {};
-    ajaxData('http://localhost:49775/api/Menu', {
+    ajaxData('http://localhost/webDmsApi/api/Menu/GetAllSysForms', {
         async: false
     }).then(function(result) {
-        menuData = result;
+        if (result) {
+            menuData = result.data;
+        }
+
     });
 
-    layer.open({
-        type: 1,
-        title: '欢迎页',
-        maxmin: true,
-        area: ['800px', '500px'],
-        content: '<div style="text-align:center"><h1>欢迎光临</h1></div>',
-        end: function() {
-            layer.tips('Hi', '#about', {
-                tips: 1
-            })
-        }
-    });
+    // layer.open({
+    //     type: 1,
+    //     title: '欢迎页',
+    //     maxmin: true,
+    //     area: ['800px', '500px'],
+    //     content: '<div style="text-align:center"><h1>欢迎光临</h1></div>',
+    //     end: function() {
+    //         layer.tips('Hi', '#about', {
+    //             tips: 1
+    //         })
+    //     }
+    // });
 
     var _vm = new Vue({
         el: '.wrapper',
         data: {
             homePage: {
-                code: '0',
-                parent: '',
+                MenuNo: '0',
+                MenuParentNo: '',
                 active: true,
-                label: '主页',
-                url: ''
+                MenuName: '主页',
+                MenuUrl: ''
             },
             openData: [],
             menuData: menuData
@@ -243,13 +247,13 @@
             handleMenuItem: function(subMenuItem) {
                 var _self = this;
                 console.time();
-                require(['Areas/' + subMenuItem.url + '.js'], function(vuePage) {
+                require(['Areas/' + subMenuItem.MenuUrl + '.js'], function(vuePage) {
 
 
                     _self.handleUnActive();
                     var isActive = false;
                     _self.openData.map(function(item) {
-                        if (item.code == subMenuItem.code) {
+                        if (item.MenuNo == subMenuItem.MenuNo) {
                             item.active = true;
                             isActive = true;
                         }
@@ -282,7 +286,7 @@
             }, //关闭所有窗口
             handleCloseOther: function() {
                 for (var i = 0; i < this.openData.length - 1; i++) {
-                    if (this.openData[i].code != '0' && !this.openData[i].active) {
+                    if (this.openData[i].MenuNo != '0' && !this.openData[i].active) {
                         this.openData.splice(i--, 1);
                     }
                 }

@@ -34,7 +34,10 @@
 
 </html>
 <script src="Global/js/vue.min.js?ver=20170916"></script>
-<script src="Global/js/index.js?ver=20170916"></script>
+<script src="Global/js/element-ui.js?ver=20170916"></script>
+<script src="Global/js/jquery.min.js?ver=20170916"></script>
+<script src="Global/js/jquery.cookie.js?ver=20170916"></script>
+<script src="Global/js/ajaxData.js?ver=20170916"></script>
 <script>
     new Vue({
         el: '.login',
@@ -61,14 +64,24 @@
                 var _self = this;
                 this.$refs.ruleForm.validate(function(valid) {
                     if (valid) {
-                        ajaxData('http://localhost:64573/api/Login/Login', {
+                        $.cookie('Ticket', '', {
+                            expires: -1
+                        });
+                        ajaxData('http://localhost/webDmsApi/api/Login/Login', {
                             data: {
-                                userName: _self.userName,
-                                passWord: _self.passWord
+                                strUser: _self.ruleForm.userName,
+                                strPwd: _self.ruleForm.passWord
                             }
                         }).then(function(result) {
-                            console.log(result)
-                                //_self.$message('这是一条消息提示');
+                            if (result.bRes) {　　　　
+                                //登录成功之后将用户名和用户票据带到主界面
+                                $.cookie('Ticket', result.Ticket);
+                                window.location.href = "index.html";
+                            } else {
+                                _self.$message('登录失败');
+                                return;　　　　　　　
+                            }
+                            //_self.$message('这是一条消息提示');
                         });
                     } else {
                         return false;
