@@ -19,20 +19,23 @@ var ajaxGloble = function() {
         //判断返回状态是否为真
         if (xhr.responseJSON.result == true) {
             if (xhr.responseJSON.message != "" && xhr.responseJSON.message != null) {
-                // parent.layer.msg(xhr.responseJSON.message, {
-                //     icon: 6,
-                //     offset: 't',
-                //     anim: 4
-                // });
+                parent.layer.msg(xhr.responseJSON.message, {
+                    icon: 6,
+                    offset: 't',
+                    anim: 4
+                });
             }
         }
         //判断返回状态是否为否
         if (xhr.responseJSON.result == false) {
-            // parent.layer.msg(xhr.responseJSON.message, {
-            //     icon: 5,
-            //     offset: 't',
-            //     anim: 6
-            // });
+            parent.layer.msg(xhr.responseJSON.message, {
+                icon: 5,
+                offset: 't',
+                anim: 6
+            });
+            if (xhr.responseJSON.direct) {
+                window.location.href = xhr.responseJSON.direct;
+            }
         }
     }).ajaxError(function(e, xhr, o) {
         if (xhr.statusText == "abort") {
@@ -40,17 +43,17 @@ var ajaxGloble = function() {
         }
 
         if (xhr.statusText == "timeout") {
-            // parent.layer.msg("访问超时！", {
-            //     icon: 5,
-            //     offset: 't',
-            //     anim: 6
-            // });
+            parent.layer.msg("访问超时！", {
+                icon: 5,
+                offset: 't',
+                anim: 6
+            });
         } else {
-            // parent.layer.msg(xhr.statusText, {
-            //     icon: 5,
-            //     offset: 't',
-            //     anim: 6
-            // });
+            parent.layer.msg(xhr.statusText, {
+                icon: 5,
+                offset: 't',
+                anim: 6
+            });
         }
         //layer.close(index);
         loadTimeOut = false;
@@ -89,8 +92,8 @@ var ajaxData = function(url, option) {
     return $.ajax(opts);
 }
 
-var hostUrl = 'http://localhost:64573/';
-// var hostUrl = 'http://localhost/webDmsApi/';
+// var hostUrl = 'http://localhost:64573/';
+var hostUrl = 'http://localhost/webDmsApi/';
 var getUrl = function(url) {
     return hostUrl + url;
 }
