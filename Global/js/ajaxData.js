@@ -1,28 +1,3 @@
-var ajaxData = function(url, option) {
-    var _defaults = {
-        url: url,
-        type: 'POST',
-        async: true,
-        global: true,
-        beforeSend: function(xhr) {
-            var _ticket = $.cookie('Ticket');
-            if (_ticket) {
-                xhr.setRequestHeader('Authorization', 'BasicAuth ' + _ticket);
-            }
-        },
-        success: function(result) {
-            return result;
-        }
-    }
-
-    var opts = $.extend({}, _defaults, option);
-    opts.then = opts.success;
-    opts.catch = opts.error;
-    return $.ajax(opts);
-}
-
-
-
 //ajax全局事件调用
 var ajaxGloble = function() {
     $.ajaxSetup({ //设置全局性的Ajax选项
@@ -33,13 +8,13 @@ var ajaxGloble = function() {
     var index;
     var loadTimeOut = true;
     $(document).ajaxStart(function() {
-        // //超过500毫秒才会显示加载层
-        // setTimeout(function() {
-        //     if (loadTimeOut) {
-        //         window.top.$(".loadingBox.ajax", window.top.document).show();
-        //     }
+        //超过500毫秒才会显示加载层
+        setTimeout(function() {
+            if (loadTimeOut) {
+                window.top.$(".loadingBox.ajax", window.top.document).show();
+            }
 
-        // }, 500);
+        }, 500);
     }).ajaxSuccess(function(e, xhr, o) {
         //判断返回状态是否为真
         if (xhr.responseJSON.result == true) {
@@ -79,12 +54,43 @@ var ajaxGloble = function() {
         }
         //layer.close(index);
         loadTimeOut = false;
-        //window.top.$(".loadingBox.ajax", window.top.document).hide();
+        window.top.$(".loadingBox.ajax", window.top.document).hide();
     }).ajaxComplete(function(e, xhr, o) {
 
     }).ajaxStop(function() {
         //layer.close(index);
         loadTimeOut = false;
-        //window.top.$(".loadingBox.ajax", window.top.document).hide();
+        window.top.$(".loadingBox.ajax", window.top.document).hide();
     });
+}
+ajaxGloble();
+
+var ajaxData = function(url, option) {
+    var _defaults = {
+        url: url,
+        type: 'POST',
+        async: true,
+        global: true,
+        beforeSend: function(xhr) {
+            var _ticket = $.cookie('Ticket');
+            if (_ticket) {
+                xhr.setRequestHeader('Authorization', 'BasicAuth ' + _ticket);
+            }
+        },
+        success: function(result) {
+            return result;
+        }
+    }
+
+    var opts = $.extend({}, _defaults, option);
+    opts.url = getUrl(opts.url);
+    opts.then = opts.success;
+    opts.catch = opts.error;
+    return $.ajax(opts);
+}
+
+var hostUrl = 'http://localhost:64573/';
+// var hostUrl = 'http://localhost/webDmsApi/';
+var getUrl = function(url) {
+    return hostUrl + url;
 }

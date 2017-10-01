@@ -180,6 +180,13 @@
                     &copy; 2016 XXX.com 版权所有 ICP证：湘ICP备XXXXXXX
                 </div>
             </div>
+            <div class="loadingBox ajax">
+                <div class="loading1"></div>
+                <div class="loading2"></div>
+                <div class="loading"></div>
+                <div class="loadingTxt">请稍候</div>
+                <div class="quxiao"><button class="btn fontColor"></button></div>
+            </div>
         </div>
 
 
@@ -199,10 +206,21 @@
 </html>
 <script>
     var menuData = {};
-    ajaxData('http://localhost/webDmsApi/api/Menu/GetAllSysForms', {
+    ajaxData('api/Menu/GetAllSysForms', {
         async: false
     }).then(function(result) {
         if (result) {
+            result.data.map(function(item) {
+                if (item.MenuParentNo == null) {
+                    item.MenuParentNo = "";
+                }
+                if (item.MenuIcon == null) {
+                    item.MenuIcon = "";
+                }
+                if (item.MenuUrl == null) {
+                    item.MenuUrl = "";
+                }
+            })
             menuData = result.data;
         }
 
@@ -246,10 +264,7 @@
             }, //清除激活状态
             handleMenuItem: function(subMenuItem) {
                 var _self = this;
-                console.time();
                 require(['Areas/' + subMenuItem.MenuUrl + '.js'], function(vuePage) {
-
-
                     _self.handleUnActive();
                     var isActive = false;
                     _self.openData.map(function(item) {
@@ -264,8 +279,6 @@
                         obj.active = true;
                         _self.openData.push(obj);
                     }
-
-                    console.timeEnd();
                 });
 
             }, //点击菜单打开窗口

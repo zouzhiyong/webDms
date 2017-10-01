@@ -67,7 +67,7 @@
                         $.cookie('Ticket', '', {
                             expires: -1
                         });
-                        ajaxData('http://localhost/webDmsApi/api/Login/Login', {
+                        ajaxData('api/Login/Login', {
                             data: {
                                 strUser: _self.ruleForm.userName,
                                 strPwd: _self.ruleForm.passWord
@@ -78,7 +78,7 @@
                                 $.cookie('Ticket', result.Ticket);
                                 window.location.href = "index.html";
                             } else {
-                                _self.$message('登录失败');
+                                _self.$message(result.message);
                                 return;　　　　　　　
                             }
                             //_self.$message('这是一条消息提示');

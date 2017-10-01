@@ -77,3 +77,191 @@ li>a i {
 .table.tb-edit.el-table .cell .center-input .el-input__inner {
     text-align: center;
 }
+
+
+/*加载框样式*/
+
+
+/*加载层最外层*/
+
+.loadingBox {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    background: #fff;
+    position: absolute;
+    top: calc( (50%) - 30px);
+    left: calc( (50%) - 75px);
+    z-index: 1000000000;
+}
+
+
+/*加载层内层*/
+
+.loading {
+    width: 100px;
+    height: 100px;
+    border-radius: 150px;
+    border: 1px solid #e0e1e2;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    animation: loading 1.2s linear infinite;
+    -webkit-animation: loading 1.2s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+
+/*加载层外层边框*/
+
+.loading1 {
+    width: 120px;
+    height: 120px;
+    border-radius: 150px;
+    border: 1px solid #f5f7fa;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -60px;
+}
+
+
+/*加载层外层转动颜色*/
+
+.loading2 {
+    width: 126px;
+    height: 126px;
+    border-radius: 150px;
+    border: 5px solid transparent;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -63px;
+    margin-left: -63px;
+    animation: loading2 1.5s linear infinite;
+    -webkit-animation: loading2 1.5s linear infinite;
+}
+
+@keyframes loading2 {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(50deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes loading2 {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(50deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.loadingTxt {
+    position: absolute;
+    top: calc( (50%) - 10px);
+    left: calc( (50%) - 20px);
+    font-size: 14px;
+    animation: twinkling 2.5s infinite linear;
+    -webkit-animation: twinkling 2.5s infinite linear;
+}
+
+.loadingBox .quxiao {
+    position: absolute;
+    display: none;
+    top: calc((50%) - (-20px));
+    left: calc((50%) - 15px);
+}
+
+.loadingBox:hover .quxiao {
+    display: block;
+}
+
+.loadingBox .quxiao button {
+    cursor: pointer;
+    font-size: 11px;
+    padding: 1px 5px;
+    background-color: transparent;
+}
+
+@-webkit-keyframes twinkling {
+    /*透明度由0到1*/
+    0% {
+        opacity: 0;
+        /*透明度为0*/
+    }
+    50% {
+        opacity: 1;
+        /*透明度为1*/
+    }
+    100% {
+        opacity: 0;
+        /*透明度为1*/
+    }
+}
+
+
+/*进入主界面时加载背景*/
+
+.loadingBegin {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0px;
+    background: #e5ecfa;
+    /*filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=40)";
+    background: url(img/login-loading.gif) center no-repeat;
+    background-color: rgba(230,230,230,0.4);*/
+    text-align: center;
+    color: #444 !important;
+    z-index: 9999;
+}
+
+.loadingBegin div[name='loginloading'] {
+    position: fixed;
+    top: 70%;
+    left: 42%;
+    padding-top: 40px;
+    padding-left: 12px;
+    font-size: 16px;
+    color: #676767;
+    width: 300px;
+    height: 300px;
+    z-index: 7;
+    margin: -16px 0 0 -16px;
+}
