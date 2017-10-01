@@ -111,7 +111,7 @@
                 <ul>
                     <li v-for="menuItem in menuData" v-if="menuItem.MenuParentNo==''">
                         <template v-if="menuItem.MenuNo=='0'">
-                                <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(subMenuItem)" data-index="0" expanded="false">
+                                <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(menuItem)" data-index="0" expanded="false">
                                         <i class="fa fa-home"></i>
                                         <span class="">主页</span>
                                     </a>
@@ -247,7 +247,7 @@
                 MenuParentNo: '',
                 active: true,
                 MenuName: '主页',
-                MenuUrl: ''
+                MenuUrl: 'cust-page'
             },
             openData: [],
             menuData: menuData
@@ -255,6 +255,7 @@
         created: function() {
             this.menuData.splice(0, 0, this.homePage);
             this.openData.push(this.homePage);
+            this.handleMenuItem(this.homePage);
         },
         methods: {
             handleUnActive: function() {
@@ -312,8 +313,8 @@
                     type: 'warning'
                 }).then(() => {
                     $.cookie('Ticket', '', {
-                            expires: -1
-                        });
+                        expires: -1
+                    });
                     window.location.href = "login.html";
                 }).catch(() => {
                     return;
