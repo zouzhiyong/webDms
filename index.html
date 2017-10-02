@@ -109,7 +109,7 @@
             </div>
             <div class="menu scroll">
                 <ul>
-                    <li v-for="menuItem in menuData" v-if="menuItem.MenuParentNo==''">
+                    <li v-for="menuItem in menuData" v-if="menuItem.MenuParentNo=='0'">
                         <template v-if="menuItem.MenuNo=='0'">
                                 <a class="menu_item" href="javascript:;" v-on:click.stop="handleMenuItem(menuItem)" data-index="0" expanded="false">
                                         <i class="fa fa-home"></i>
@@ -212,7 +212,7 @@
         if (result) {
             result.data.map(function(item) {
                 if (item.MenuParentNo == null) {
-                    item.MenuParentNo = "";
+                    item.MenuParentNo = 0;
                 }
                 if (item.MenuIcon == null) {
                     item.MenuIcon = "";
@@ -244,7 +244,7 @@
         data: {
             homePage: {
                 MenuNo: '0',
-                MenuParentNo: '',
+                MenuParentNo: 0,
                 active: true,
                 MenuName: '主页',
                 MenuUrl: 'cust-page'
