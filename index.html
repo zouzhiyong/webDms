@@ -170,7 +170,7 @@
             </div>
             <div class="J_mainContent">
                 <div v-for="item in openData" class="J_iframe" :data-id="item.MenuNo" :style="{display:item.active?'':'none'}">
-                    <component :is="item.MenuUrl">
+                    <component :is="item.MenuUrl" :title="item.MenuName" :control="item.Control">
 
                     </component>
                 </div>
@@ -191,7 +191,7 @@
 
 
     </div>
-
+    <script src="Global/js/config.js?ver=20170916"></script>
     <script src="Global/js/jquery.min.js?ver=20170916"></script>
     <script src="Global/js/jquery.cookie.js?ver=20170916"></script>
     <script src="Global/js/layer/layer.js?ver=20170916"></script>
@@ -206,7 +206,7 @@
 </html>
 <script>
     var menuData = {};
-    ajaxData('api/Menu/GetAllSysForms', {
+    ajaxData('api/Menu/FindSysMenu', {
         async: false
     }).then(function(result) {
         if (result) {
@@ -247,7 +247,8 @@
                 MenuParentNo: 0,
                 active: true,
                 MenuName: '主页',
-                MenuUrl: 'cust-page'
+                MenuUrl: 'cust-page',
+                urls: []
             },
             openData: [],
             menuData: menuData
