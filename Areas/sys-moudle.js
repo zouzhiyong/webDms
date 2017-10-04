@@ -3,10 +3,10 @@ define(['Components/tree.js', 'Components/table.js'], function(tree, table) {
         data: function() {
             return {
                 treeData: [],
-                tableData: [],
                 treeUrl: '',
                 tableUrl: '',
                 treeId: '',
+                tableCondition: {}
             }
         },
         props: {
@@ -43,12 +43,7 @@ define(['Components/tree.js', 'Components/table.js'], function(tree, table) {
             },
             handleNodeClick: function(data) {
                 var _self = this;
-                ajaxData(_self.tableUrl + data.MenuNo, { async: false })
-                    .then(function(result) {
-                        if (result) {
-                            _self.tableData = result.data;
-                        }
-                    });
+                this.tableCondition = { MenuNo: data.MenuNo };
             },
             handleRowClick: function(row) {
                 console.log(row)
@@ -71,8 +66,8 @@ define(['Components/tree.js', 'Components/table.js'], function(tree, table) {
                         ])
                     ]),
                     _c('el-col', { staticStyle: { height: '100%', width: 'calc(100% - 200px)' } }, [
-                        _c('div', { staticStyle: { background: '#f2f2f2', height: '100%' } }, [
-                            _c('component-table', { attrs: { columns: _self.tableColumns, data: _self.tableData }, on: { 'edit': _self.handleRowClick } })
+                        _c('div', { staticStyle: { height: '100%' } }, [
+                            _c('component-table', { attrs: { columns: _self.tableColumns, url: _self.tableUrl, condition: _self.tableCondition }, on: { 'edit': _self.handleRowClick } })
                         ])
                     ])
                 ]),
