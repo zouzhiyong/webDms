@@ -49,6 +49,9 @@ Vue.component('sys-moudle', {
                         _self.tableData = result.data;
                     }
                 });
+        },
+        handleRowClick: function(row) {
+            console.log(row)
         }
     },
     render: function(_c) {
@@ -80,8 +83,31 @@ Vue.component('sys-moudle', {
                         _c('el-table', tableObj, [
                             _self._l(_self.tableColumns, function(item) {
                                 var objTemp = JSON.parse(JSON.stringify(controlTableColumn));
-                                objTemp.attrs = $.extend({}, objTemp.attrs, item)
-                                return _c('el-table-column', { attrs: objTemp.attrs })
+                                objTemp.attrs = $.extend({}, objTemp.attrs, item);
+                                if (item.prop == null || item.prop == "") {
+                                    delete objTemp.attrs.prop
+                                }
+
+                                return _c('el-table-column', {
+                                    //作用域插槽的模板，重点**************
+                                    attrs: objTemp.attrs,
+                                    scopedSlots: item.isTemplate == 1 ? {
+                                        default: function(scope) {
+                                            return _c('el-button', {
+                                                attrs: { type: "text" },
+                                                nativeOn: {
+                                                    'click': function($event) {
+                                                        $event.preventDefault();
+                                                        _self.handleRowClick(scope.row);
+                                                    }
+                                                },
+                                                staticStyle: { width: '30px' }
+                                            }, [
+                                                _c('i', { staticClass: item.templateIcon })
+                                            ])
+                                        }
+                                    } : _self._e()
+                                })
                             })
                         ])
                     ])

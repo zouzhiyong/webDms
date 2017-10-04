@@ -66,9 +66,10 @@ var ajaxGloble = function() {
         window.top.$(".loadingBox.ajax", window.top.document).hide();
     });
 }
-ajaxGloble();
+
 
 var ajaxData = function(url, option) {
+    ajaxGloble();
     var _defaults = {
         url: url,
         type: 'POST',
@@ -82,15 +83,17 @@ var ajaxData = function(url, option) {
         },
         success: function(result) {
             return result;
+        },
+        error: function(e) {
+            return e;
         }
     }
 
     var opts = $.extend({}, _defaults, option);
     opts.url = getUrl(opts.url);
-    opts.then = opts.success;
-    opts.catch = opts.error;
     return $.ajax(opts);
 }
+
 
 // var hostUrl = 'http://localhost:64573/';
 var hostUrl = 'http://localhost/webDmsApi/';

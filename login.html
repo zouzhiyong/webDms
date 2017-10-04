@@ -9,7 +9,11 @@
     <title>进销存</title>
     <link rel="stylesheet" href="Global/css/font-awesome.css?ver=20170916" />
     <link rel="stylesheet" href="Global/css/index.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/global.css?ver=20170916" />
     <link rel="stylesheet" href="Global/css/login.css?ver=20170916" />
+    <link rel="stylesheet" href="Global/css/layout.css?ver=20170916" />
+    <link rel="stylesheet/less" href="Global/css/color.less?ver=20170916" />
+    <script src="Global/js/less.min.js?ver=20170916"></script>
 </head>
 
 <body>
@@ -29,6 +33,12 @@
                 <el-button type="primary" @click="handleLogin">登录</el-button>
             </el-form-item>
         </el-form>
+        <div class="loadingBox ajax" style="display:none">
+            <div class="loading1"></div>
+            <div class="loading2"></div>
+            <div class="loading"></div>
+            <div class="loadingTxt">请稍候</div>
+        </div>
     </div>
 </body>
 
@@ -36,6 +46,7 @@
 <script src="Global/js/vue.min.js?ver=20170916"></script>
 <script src="Global/js/element-ui.js?ver=20170916"></script>
 <script src="Global/js/jquery.min.js?ver=20170916"></script>
+<script src="Global/js/layer/layer.js?ver=20170916"></script>
 <script src="Global/js/jquery.cookie.js?ver=20170916"></script>
 <script src="Global/js/ajaxData.js?ver=20170916"></script>
 <script>
@@ -81,7 +92,8 @@
                                 _self.$message(result.message);
                                 return;　　　　　　　
                             }
-                            //_self.$message('这是一条消息提示');
+                        }, function() {
+
                         });
                     } else {
                         return false;
@@ -90,4 +102,5 @@
             }
         }
     })
+</script>
 </script>
