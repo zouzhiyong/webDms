@@ -1,4 +1,4 @@
-define(['Components/tree.js', 'Components/table.js', 'Areas/sys-form.js'], function(tree, table, form) {
+define(['Components/component-tree.js', 'Components/component-table.js', 'Components/component-form.js'], function(tree, table, form) {
     Vue.component('sys-moudle', {
         data: function() {
             return {
@@ -52,7 +52,7 @@ define(['Components/tree.js', 'Components/table.js', 'Areas/sys-form.js'], funct
                     title: '欢迎页',
                     maxmin: true,
                     area: ['800px', '500px'],
-                    content: '', //'<div style="text-align:center"><h1>欢迎光临</h1></div>',
+                    content: '',
                     success: function(layero, index) {
                         var MyComponent = Vue.extend({
                             render: function(_c) {

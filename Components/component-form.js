@@ -1,4 +1,4 @@
-Vue.component('sys-form', {
+Vue.component('form', {
     data: function() {
         var v = {};
         this.form.item.map(function(item) {
