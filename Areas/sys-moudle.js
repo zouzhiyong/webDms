@@ -5,6 +5,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                 tableCondition: {},
                 tree: {},
                 table: {},
+                form: {}
             }
         },
         props: {
@@ -20,14 +21,15 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                 var _self = this;
                 this.control.map(function(item) {
                     if (item.ControlName == 'component-tree') {
-                        // _self.treeUrl = item.FindUrl;
                         _self.tree = item;
                     }
 
                     if (item.ControlName == 'component-table') {
-                        // _self.tableUrl = item.FindUrl;
-                        //_self.tableColumns = item.columns;
                         _self.table = item;
+                    }
+
+                    if (item.ControlName == 'component-form') {
+                        _self.form = item;
                     }
                 })
 
@@ -57,7 +59,7 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                         var MyComponent = Vue.extend({
                             render: function(_c) {
                                 var _this = this;
-                                return _c('component-form', { model: { value: (_self.value[item.model]), callback: function($$v) { _self.value[item.model] = $$v }, expression: item.model } })
+                                return _c('component-form', { attrs: { control: _self.form } })
                             }
                         })
                         var component = new MyComponent().$mount();
