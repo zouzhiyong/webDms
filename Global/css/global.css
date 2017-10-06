@@ -1,16 +1,21 @@
-body {
+* {
     font-size: 14px;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    box-sizing: border-box;
+}
+
+label {
+    font-weight: normal
+}
+
+a {
+    text-decoration: none;
 }
 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-.dropdown-menu {
-    font-size: 12px;
 }
 
 .btn:active:focus, .btn:focus, .btn:active {
