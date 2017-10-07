@@ -297,12 +297,12 @@
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
-                }).then(() => {
+                }).then(function() {
                     $.cookie('Ticket', '', {
                         expires: -1
                     });
                     window.location.href = "login.html";
-                }).catch(() => {
+                }).catch(function() {
                     return;
                 });
             }, //退出

@@ -5,7 +5,9 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                 tableCondition: {},
                 tree: {},
                 table: {},
-                form: {}
+                form: {},
+                dialogFormVisible: false,
+                formCondition: {}
             }
         },
         props: {
@@ -32,47 +34,22 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                         _self.form = item;
                     }
                 })
-
-                // ajaxData(_self.treeUrl, { async: false })
-                //     .then(function(result) {
-                //         if (result) {
-                //             _self.treeData = result.data.tree;
-                //             _self.treeId = result.data.id;
-                //         }
-                //     });
-
             },
             handleNodeClick: function(data) {
                 var _self = this;
                 this.tableCondition = data;
             },
             handleRowClick: function(row) {
-                var _self = this;
-                layer.open({
-                    type: 1,
-                    title: _self.title,
-                    maxmin: true,
-                    area: ['578px', '500px'],
-                    content: '',
-                    success: function(layero, index) {
+                this.formCondition = row;
+                this.dialogFormVisible = true;
+            },
+            handleCloseForm: function() {
 
-                        var MyComponent = Vue.extend({
-                            render: function(_c) {
-                                var _this = this;
-                                return _c('component-form', { attrs: { control: _self.form } })
-                            }
-                        })
-                        var component = new MyComponent().$mount();
-                        layero[0].querySelector('.layui-layer-content').appendChild(component.$el);
-                    },
-                    end: function() {
-
-                    }
-                });
             }
         },
         render: function(_c) {
             var _self = this;
+
             return _c('el-row', { staticStyle: { height: '100%' } }, [
                 _c('el-row', [
                     _c('el-col', [
@@ -93,6 +70,13 @@ define(['Components/component-tree.js', 'Components/component-table.js', 'Compon
                         ])
                     ])
                 ]),
+                _c('el-dialog', { attrs: { "title": _self.title, "visible": _self.dialogFormVisible, 'close-on-click-modal': false, 'close-on-press-escape': false }, on: { close: _self.handleCloseForm, "update:visible": function($event) { _self.dialogFormVisible = $event } } }, [
+                    _c('component-form', { attrs: { control: _self.form, condition: _self.formCondition } }),
+                    _c('div', { staticClass: "dialog-footer", attrs: { "slot": "footer" }, slot: "footer" }, [
+                        _c('el-button', { on: { "click": function($event) { _self.dialogFormVisible = false } } }, [_self._v("取 消")]),
+                        _c('el-button', { attrs: { "type": "primary" }, on: { "click": function($event) { _self.dialogFormVisible = false } } }, [_self._v("确 定")])
+                    ])
+                ])
             ])
         }
     })

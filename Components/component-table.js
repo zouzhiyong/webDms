@@ -23,7 +23,7 @@ Vue.component('component-table', {
 
     },
     methods: {
-        getTableData: function(condition) {
+        GetData: function(condition) {
             var _self = this;
             ajaxData(_self.control.FindUrl, {
                     async: false,
@@ -44,18 +44,18 @@ Vue.component('component-table', {
         },
         handleCurrentChange: function(currentPage) {
             this.condition.currentPage = currentPage;
-            this.getTableData(this.condition);
+            this.GetData(this.condition);
         }
     },
     watch: {
         condition: {
             handler: function(newVal, oldVal) {
                 if (newVal.currentPage && newVal.pageSize) {
-                    this.getTableData(newVal);
+                    this.GetData(newVal);
                 } else {
                     this.condition.currentPage = 1;
                     this.condition.pageSize = Math.floor(this.height / 40);
-                    this.getTableData(this.condition);
+                    this.GetData(this.condition);
                 }
             },
             deep: true
