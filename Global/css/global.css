@@ -83,6 +83,21 @@ li>a i {
     text-align: center;
 }
 
+.el-dialog__header {
+    background-color: #f8f8f8;
+    padding: 0;
+}
+
+.el-dialog__footer {
+    background-color: #f8f8f8;
+    padding: 10px 15px;
+    text-align: center;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
 
 /*加载框样式*/
 
